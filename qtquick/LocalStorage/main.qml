@@ -19,6 +19,7 @@ ApplicationWindow {
                 // Create the database if it doesn't already exist
                 tx.executeSql('CREATE TABLE IF NOT EXISTS Greeting(name TEXT)');
             });
+        updateListView();
     }
 
 
@@ -39,29 +40,29 @@ ApplicationWindow {
 
 
 
-    function findGreetings() {
-        var db = LocalStorage.openDatabaseSync("QQmlExampleDB", "1.0", "The Example QML SQL!", 1000000);
+    function updateListView() {
 
         db.transaction(
-            function(tx) {
-                // Create the database if it doesn't already exist
-                tx.executeSql('CREATE TABLE IF NOT EXISTS Greeting(salutation TEXT, salutee TEXT)');
-
-                // Add (another) greeting row
-                tx.executeSql('INSERT INTO Greeting VALUES(?, ?)', [ 'hello', 'world' ]);
-
+             function(tx) {
                 // Show all added greetings
                 var rs = tx.executeSql('SELECT * FROM Greeting');
-
-                var r = ""
-                for(var i = 0; i < rs.rows.length; i++) {
-                    r += rs.rows.item(i).salutation + ", " + rs.rows.item(i).salutee + "\n"
-                }
-                text = r
-            }
-        )
+                names.clear()
+                   for(var i = 0; i < rs.rows.length; i++) {
+                       names.append( { 'name':rs.rows.item(i).name } )
+                       console.log(  rs.rows.item(i).name  );
+                   }
+                 });
     }
 
+
+    Component {
+        id: nameDelegate
+        Row {
+            spacing: 10
+            Text { text: name }
+
+        }
+    }
 
     ColumnLayout {
 
@@ -69,6 +70,13 @@ ApplicationWindow {
         anchors.fill: parent
 
 
+
+        ListModel {
+            id: names
+
+
+
+        }
 
 
         RowLayout {
@@ -94,27 +102,21 @@ ApplicationWindow {
                                  // Add (another) greeting row
                                  tx.executeSql('INSERT INTO Greeting VALUES(?)', [ name.text ]);
 
-                                 // Show all added greetings
-                                 var rs = tx.executeSql('SELECT * FROM Greeting');
 
-//                                 var r = ""
-                                 for(var i = 0; i < rs.rows.length; i++) {
-//                                     r += rs.rows.item(i).salutation + ", " + rs.rows.item(i).salutee + "\n"
-                                     console.log(  rs.rows.item(i).name  );
-                                 }
-                                // text = r
                              }
-                         )
+                         );
+
+                    updateListView();
 
                 }
             }
         }
 
-        TableView {
+        ListView {
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-
+            model: names
+            delegate: nameDelegate
         }
 
     }
