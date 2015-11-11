@@ -33,14 +33,46 @@
     <my_path_var>world</my_path_var>
   </properties>
 
-
   <dependencies>
+  <dependency>
+  <groupId>ch.qos.logback</groupId>
+  <artifactId>logback-classic</artifactId>
+  <version>1.1.3</version>
+</dependency>
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-api</artifactId>
+  <version>1.7.12</version>
+</dependency>
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+
+<dependency>
+  <groupId>org.im4java</groupId>
+  <artifactId>im4java</artifactId>
+  <version>1.2.0</version>
+</dependency>
+
+<dependency>
+  <groupId>com.sharneng</groupId>
+  <artifactId>gm4java</artifactId>
+  <version>1.1.0</version>
+</dependency>
+
+<dependency>
+  <groupId>com.lowagie</groupId>
+  <artifactId>itext</artifactId>
+  <version>4.2.2</version>
+</dependency>
+
+
   </dependencies>
 
   <build>
@@ -58,6 +90,34 @@
           </execution>
         </executions>
       </plugin>
+
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19</version>
+        <configuration>
+          <excludes>
+            <!-- <exclude>**/newTest.java</exclude> -->
+
+          </excludes>
+        </configuration>
+      </plugin>
+
+
     </plugins>
   </build>
+
+    <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.19</version>
+        <configuration>
+          <showSuccess>true</showSuccess>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
 </project>
