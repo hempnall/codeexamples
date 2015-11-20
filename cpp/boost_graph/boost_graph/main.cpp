@@ -4,6 +4,13 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
+#include <boost/graph/graphviz.hpp>
+#include <boost/graph/adjacency_list.hpp>
+#include <string>
+#include <fstream>
+#include <boost/graph/iteration_macros.hpp>
+
+
 
 using namespace boost;
 
@@ -24,57 +31,12 @@ template <class Graph> struct exercise_vertex {
 
 int main(int,char*[])
 {
-//  // create a typedef for the Graph type
-//  typedef adjacency_list<vecS, vecS, bidirectionalS> Graph;
-
-//  // Make convenient labels for the vertices
-//  enum { A, B, C, D, E, N };
-//  const int num_vertices = N;
-//  const char* name = "ABCDE";
-
-//  // writing out the edges in the graph
-//  typedef std::pair<int, int> Edge;
-//  Edge edge_array[] =
-//          { Edge(A,B), Edge(A,D), Edge(C,A), Edge(D,C),
-//            Edge(C,E), Edge(B,D), Edge(D,E) };
 
 
-//  const int num_edges = sizeof(edge_array)/sizeof(edge_array[0]);
+    typedef boost::adjacency_list<vecS, vecS, undirectedS,
+                                  property<vertex_name_t, std::string>,
+                                  property<edge_weight_t, double> > Graph;
 
-//  // declare a graph object
-//    Graph g(edge_array, edge_array + sizeof(edge_array) / sizeof(Edge), num_vertices);
-//    typedef graph_traits<Graph>::vertex_descriptor Vertex;
-
-//    // get the property map for vertex indices
-//    typedef property_map<Graph, vertex_index_t>::type IndexMap;
-//    IndexMap index = get(vertex_index, g);
-
-//    std::cout << "vertices(g) = ";
-//    typedef graph_traits<Graph>::vertex_iterator vertex_iter;
-//    std::pair<vertex_iter, vertex_iter> vp;
-//    for (vp = vertices(g); vp.first != vp.second; ++vp.first) {
-//      Vertex v = *vp.first;
-//      std::cout << index[v] <<  " ";
-//    }
-//    std::cout << std::endl;
-//    // ...
-//    std::cout << "edges(g) = ";
-//    graph_traits<Graph>::edge_iterator ei, ei_end;
-//    for (boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
-//        std::cout << "(" << index[source(*ei, g)]
-//                  << "," << index[target(*ei, g)] << ") ";
-//    std::cout << std::endl;
-//    std::for_each(vertices(g).first, vertices(g).second,
-//                  exercise_vertex<Graph>(g));
-
-
-
-    // get the property map for vertex indices
-
-
-
-    typedef adjacency_list<listS, vecS, directedS,
-                           no_property, property<edge_weight_t, int> > Graph;
 
 
     typedef graph_traits<Graph>::vertex_descriptor Vertex;
@@ -90,7 +52,20 @@ int main(int,char*[])
 
     Graph G(edges, edges + sizeof(edges) / sizeof(E), weights, num_nodes);
      typedef property_map<Graph, vertex_index_t>::type IndexMap;
+
+
     IndexMap index = get(vertex_index, G);
+
+    property_map<Graph, vertex_name_t>::type dd = get(vertex_name, G);
+
+    typedef graph_traits<Graph>::vertex_iterator vertex_iter;
+    std::pair<vertex_iter, vertex_iter> vp;
+    for (vp = vertices(G); vp.first != vp.second; ++vp.first) {
+      std::cout << index[*vp.first] <<  " ";
+        std::string vertex_name_id = std::string( "name ") + std::to_string(index[*vp.first]);
+        put(dd,*vp.first,vertex_name_id);
+    }
+
     // vector for storing distance property
     std::vector<int> d(num_vertices(G));
 
@@ -105,6 +80,13 @@ int main(int,char*[])
       std::cout << "distance(" << index(*vi) << ") = "
                 << d[*vi] << std::endl;
     std::cout << std::endl;
+
+    dynamic_properties dp;
+    dp.property("id", get(vertex_name, G));
+//    dp.property("weight", get(edge_weight, G));
+
+    // Write out the graph
+    write_graphviz_dp(std::cout, G, dp, std::string("id"));
 
   return 0;
 }
