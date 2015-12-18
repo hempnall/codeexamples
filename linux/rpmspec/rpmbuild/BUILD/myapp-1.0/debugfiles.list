@@ -1,0 +1,9 @@
+%dir /usr/lib/debug
+%dir /usr/lib/debug/usr
+%dir /usr/lib/debug/usr/bin
+%dir /usr/lib/debug/.build-id
+%dir /usr/lib/debug/.build-id/98
+/usr/lib/debug/usr/bin/myapp.debug
+/usr/lib/debug/.build-id/98/5e5b2dd5e8366ca0cff89d4bc36550db176a6a
+/usr/lib/debug/.build-id/98/5e5b2dd5e8366ca0cff89d4bc36550db176a6a.debug
+/usr/src/debug/myapp-1.0
