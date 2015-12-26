@@ -39,3 +39,15 @@ RUN ./configure --enable-poppler-qt4
 #ADD build-poppler.sh /
 #RUN chmod +x /build-poppler.sh
 RUN make VERBOSE=1
+RUN make install
+ADD page.pdf /
+RUN ln -s /usr/local/Trolltech/Qt-4.8.2/bin/qmake   /usr/bin/qmake
+RUN mkdir /testqt
+ADD main.cpp /testqt
+ADD main.pro /testqt
+WORKDIR /testqt
+RUN qmake
+RUN make
+ADD poppler.conf /etc/ld.so.conf.d
+RUN ldconfig
+RUN ./main
