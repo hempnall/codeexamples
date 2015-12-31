@@ -1,0 +1,20 @@
+--- fontconfig-2.2.1/fontconfig/fcfreetype.h~	2003-12-17 20:36:55.000000000 +0100
++++ fontconfig-2.2.1/fontconfig/fcfreetype.h~	2003-12-17 20:36:55.000000000 +0100
+@@ -24,6 +24,7 @@ 
+ 
+ #ifndef _FCFREETYPE_H_
+ #define _FCFREETYPE_H_
++#include <ft2build.h>
+ #include <freetype/freetype.h>
+ 
+ FT_UInt
+--- fontconfig-2.2.1/src/fcfreetype.c~	2003-12-17 22:23:17.000000000 +0100
++++ fontconfig-2.2.1/src/fcfreetype.c~	2003-12-17 22:23:17.000000000 +0100
+@@ -58,7 +58,6 @@ 
+ 
+ #if (FREETYPE_MINOR > 1 || (FREETYPE_MINOR == 1 && FREETYPE_PATCH >= 4))
+ #include <freetype/ftbdf.h>
+-#include <freetype/ftmodule.h>
+ #define USE_FTBDF
+ #define HAS_BDF_PROPERTY(f) ((f) && (f)->driver && \
+ 			     (f)->driver->root.clazz->get_interface)
