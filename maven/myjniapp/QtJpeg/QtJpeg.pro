@@ -11,7 +11,10 @@ DEFINES += QTJPEG_LIBRARY
 
 SOURCES += qtjpeg.cpp
 
-INCLUDEPATH += /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ #/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/include/
+
+
+INCLUDEPATH += /usr/lib/jvm/java-7-openjdk-amd64/include/
+
 
 HEADERS += qtjpeg.h\
         qtjpeg_global.h

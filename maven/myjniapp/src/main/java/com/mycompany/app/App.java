@@ -15,13 +15,13 @@ public class App
     public static void main( String[] args ) throws Exception
     {
 
-    	Path path = Paths.get("/Users/James/aaaaa.jpg");
+    	Path path = Paths.get("/home/james/aaaaa.jpg");
 		byte[] data = Files.readAllBytes(path);
 
 		byte[] newFile = QtJpeg.transformJpeg(data);
 
 
-		FileOutputStream fos = new FileOutputStream("/Users/James/jnioutput.jpg");
+		FileOutputStream fos = new FileOutputStream("/home/james/jnioutput.jpg");
 		fos.write(newFile);
 		fos.close();
 
