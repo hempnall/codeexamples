@@ -1,41 +1,50 @@
-import QtQuick 2.5
+import QtQuick 2.3
+import QtTest 1.0
 import QtQuick.Controls 1.4
-import QtQuick.Dialogs 1.2
 
-ApplicationWindow {
-    visible: true
-    width: 640
-    height: 480
-    title: qsTr("Hello World")
+Rectangle {
+    id: rect
+    color: "red"
+    width: 200
+    height: 100
 
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("File")
-            MenuItem {
-                text: qsTr("&Open")
-                onTriggered: console.log("Open action triggered");
-            }
-            MenuItem {
-                text: qsTr("Exit")
-                onTriggered: Qt.quit();
-            }
+    ComboBox {
+        id: cmbbox
+        objectName: "cmb"
+        currentIndex: 0
+        model: ListModel {
+            id: cbItems
+            ListElement { text: "Banana"; color: "Yellow" }
+            ListElement { text: "Apple"; color: "Green" }
+            ListElement { text: "Coconut"; color: "Brown" }
         }
-    }
+        width: 200
+        onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
 
-    MainForm {
-        anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
-    }
+        TestCase {
+            name: "combo test"
+            when: windowShown
 
-    MessageDialog {
-        id: messageDialog
-        title: qsTr("May I have your attention, please?")
 
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
+            function test_sample() {
+
+                var x= findChild(rect,"cmb");
+                cmbbox.focus = true;
+
+                mouseClick(x);
+
+
+
+//            console.log("before");
+
+            console.log("after");
+//            keyClick(Qt.Key_Down,Qt.NoModifier,30);
+//            keyClick(Qt.Key_C,Qt.NoModifier,30);
+
+
         }
+
+    }
     }
 }
 

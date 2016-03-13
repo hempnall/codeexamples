@@ -1,14 +1,12 @@
 TEMPLATE = app
+TARGET = tst_example
+CONFIG += warn_on qmltestcase
+SOURCES += tst_example.cpp
 
-QT += qml quick
+QML2_IMPORT_PATH = $$OUT_PWD
 
-SOURCES += main.cpp
 
-RESOURCES += qml.qrc
+DISTFILES += \
+    tst_combo.qml
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
-# Default rules for deployment.
-include(deployment.pri)
 

@@ -24,6 +24,9 @@ ApplicationWindow {
     Label {
         text: qsTr("Hello World")
         anchors.centerIn: parent
+        Component.onCompleted: console.log("label complete")
     }
+
+    Component.onCompleted: console.log("form completed")
 }
 

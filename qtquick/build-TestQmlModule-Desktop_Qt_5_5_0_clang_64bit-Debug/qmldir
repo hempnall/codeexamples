@@ -1,0 +1,9 @@
+module com.hempnall.testmodule
+
+# this line loads the plugin testqmlmodule (registering types)
+plugin TestQmlModule
+
+# this line loads red rectangle to be associated with RedRectagle 1.0
+RedRectangle 1.0 RedRectangle.qml
+
+
