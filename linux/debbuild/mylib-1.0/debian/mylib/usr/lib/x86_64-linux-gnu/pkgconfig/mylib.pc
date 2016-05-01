@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/x86_64-linux-gnu/mylib
+includedir=${prefix}/include/mylib
+
+
+Name: My Lib
+Cflags: -I${includedir}
+Libs: -L${libdir} -lmylib
+Description: The foo library wibrary
+Version: 1.0.0

@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@/mylib
+includedir=@includedir@/mylib
+
+
+Name: My Lib
+Cflags: -I${includedir}
+Libs: -L${libdir} -lmylib
+Description: The foo library wibrary
+Version: 1.0.0
