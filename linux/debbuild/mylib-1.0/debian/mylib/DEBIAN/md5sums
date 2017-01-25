@@ -1,0 +1,8 @@
+5a02f01c864472e0472193ab2cec10da  usr/include/exports.h
+334a87b29c3a374f1efe1a2507eee6d1  usr/lib/x86_64-linux-gnu/libmylib.a
+fce02055774275456be8e0ced06b44d0  usr/lib/x86_64-linux-gnu/libmylib.la
+f3205d19ac85619696b6b4020c734205  usr/lib/x86_64-linux-gnu/libmylib.so.0.0.0
+b79fa76579d039bf9cd667dac27289b3  usr/lib/x86_64-linux-gnu/pkgconfig/mylib.pc
+531129e17aa385a6c7818175e7521769  usr/share/doc/mylib/README.Debian
+a09197b66d42f47cd83403a4647813cd  usr/share/doc/mylib/changelog.gz
+347f013e0e1875ea870a288a903c07eb  usr/share/doc/mylib/copyright
