@@ -2,6 +2,8 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.4
+import "SendObjectToElasticSearch.js" as ELASTICSEARCH
 
 Window {
     visible: true
@@ -44,6 +46,7 @@ Window {
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter
+
                 }
 
                 width: dragArea.width; height: column.implicitHeight + 4
@@ -56,11 +59,8 @@ Window {
 
                 radius: 2
 
-
-
                 states: State {
                     when: dragArea.held
-
                     ParentChange { target: content; parent: root }
                     AnchorChanges {
                         target: content
@@ -69,10 +69,8 @@ Window {
                 }
 
                 Column {
-
                     id: column
                     anchors { fill: parent; margins: 2 }
-
                     Text { text: 'cat: ' + cat }
                     Text { text: 'subcat: ' + subcat }
                 }
@@ -89,6 +87,7 @@ Window {
         delegate: dragDelegate
 
         groups:  [
+
             DelegateModelGroup {
                 name: "health"
             },
@@ -118,8 +117,13 @@ Window {
 
     ColumnLayout {
 
-        anchors.fill: parent
-
+        anchors {
+            fill: parent
+            leftMargin: 5
+            rightMargin: 5
+            topMargin: 5
+            bottomMargin: 5
+        }
 
         ListView {
 
@@ -129,29 +133,35 @@ Window {
             Layout.fillWidth: true
             Layout.minimumHeight: 50
             Layout.preferredHeight: 50
+            spacing: 4
 
             highlightFollowsCurrentItem: true
 
             highlight: Rectangle {
+               // anchors.fill: parent
+                color: "lightsteelblue"
 
-                height: 100
-                color: "red"
             }
 
-            delegate: Text {
-                width: lv_categories.width
-                id: del_txt
-                text: cat
+            orientation: Qt.LeftToRight
 
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        lv_categories.currentIndex = index
+            delegate:
+                Text {
+                    width: the_text.implicitWidth
+                    height: the_text.implicitHeight
+                    id: the_text
 
+                    text: cat
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                          lv_categories.currentIndex = index
+                        }
                     }
+
                 }
-            }
 
             onCurrentItemChanged:  {
                 var model_cat = categories.get(currentIndex).cat
@@ -164,15 +174,54 @@ Window {
 
         ListView {
             id: view
-
             Layout.fillHeight: true
             Layout.fillWidth: true
-
             model: visualModel
-
             spacing: 4
             cacheBuffer: 50
         }
+
+        RowLayout {
+
+            Layout.maximumHeight:   50
+            Layout.fillWidth: true
+
+            Rectangle {
+
+                id: rct
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: "lightsteelblue"
+
+                TextEdit {
+                    id: text_ed
+                    anchors {
+                        margins: 5
+                        fill: parent
+                    }
+
+                }
+            }
+
+            Button {
+                Layout.fillHeight:  true
+                text: "+"
+                onClicked: {
+                    var top_cat = categories.get( lv_categories.currentIndex).cat;
+
+                    var obj = new Object();
+                    obj.category = top_cat;
+                    obj.sub_cat = text_ed.text;
+                    console.log( JSON.stringify(obj));
+
+                    ELASTICSEARCH.save_category(obj);
+
+                }
+            }
+
+        }
+
+
 
     }
 }
