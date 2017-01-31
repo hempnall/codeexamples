@@ -2,39 +2,39 @@ import QtQuick 2.0
 
 ListModel {
     ListElement {
-        cat: "Finance"
+        cat: "finance"
         subcat: "Joint Account"
     }
     ListElement {
-        cat: "Finance"
+        cat: "finance"
         subcat: "Credit Card"
     }
     ListElement {
-        cat: "Health"
+        cat: "health"
         subcat: "Emily"
     }
     ListElement {
-        cat: "Health"
+        cat: "health"
         subcat: "James"
     }
     ListElement {
-        cat: "Health"
+        cat: "health"
         subcat: "Helen"
     }
     ListElement {
-        cat: "Health"
+        cat: "health"
         subcat: "Bethan"
     }
     ListElement {
-        cat: "Utilities"
+        cat: "utilities"
         subcat: "Gas"
     }
     ListElement {
-        cat: "Utilities"
+        cat: "utilities"
         subcat: "Leckie"
     }
     ListElement {
-        cat: "Utilities"
+        cat: "utilities"
         subcat: "Water"
     }
 }

@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>DataModel.qml</file>
-        <file>SendObjectToElasticSearch.js</file>
+        <file>ElasticSelector.js</file>
+        <file>ElasticCategorySelector.qml</file>
     </qresource>
 </RCC>
