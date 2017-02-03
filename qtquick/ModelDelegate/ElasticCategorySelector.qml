@@ -13,6 +13,7 @@ Item {
     property string index: "scans"
     property string type: "categories"
     property bool persistNewCategories: true
+    property int max_records: 1000
 
 
 
@@ -120,7 +121,7 @@ Item {
         ]
 
         Component.onCompleted: {
-            ELASTIC.fetch_data_into_model(model,visualModel,root.host,root.index,root.type);
+            ELASTIC.fetch_data_into_model(model,visualModel,root.host,root.index,root.type,max_records);
         }
 
         function finished_loading(cat) {

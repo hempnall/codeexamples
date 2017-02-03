@@ -1,11 +1,11 @@
-function fetch_data_into_model(listmodel,model, host,index,type)
+function fetch_data_into_model(listmodel,model, host,index,type,max_records)
  {
      //create a request and tell it where the json that I want is
      var req = new XMLHttpRequest();
      var location = get_url(host,index,type);
     console.log(location);
      //tell the request to go ahead and get the json
-     req.open("GET", location + "/_search", true);
+     req.open("GET", location + "/_search?size=" + max_records, true);
      req.send(null);
 
      //wait until the readyState is 4, which means the json is ready
@@ -47,7 +47,9 @@ function save_object(host,index,type,obj) {
 
     postman.onreadystatechange = function() {
         if (postman.readyState == postman.DONE) {
-            console.log("Your score has been uploaded.");
+
+            console.log("Your score has been uploaded." , postman.status , postman.statusText);
+            console.log(postman.responseText);
         }
     }
     postman.send(postData);
